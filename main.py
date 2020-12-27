@@ -1,7 +1,10 @@
 #!/usr/bin/env
 
+import json
+import pickle
 import code
 import os
+import getpass
 
 from colorama import init
 init()
@@ -14,6 +17,29 @@ version = "1.0"
 #space
 print()
 #space
+
+
+
+def paskeys():
+    filecheck = os.path.exists("more/data/paskeys.json")
+    if filecheck == True:
+        with open('more/data/paskeys.json') as f:
+            dataa = json.load(f)
+
+        pwdchk = getpass.getpass("Enter Password: Secure 1.0$ ")
+        if pwdchk == dataa['pwd']:
+            print()
+            print(Fore.GREEN + "Welcome Back")
+            print(Style.RESET_ALL)
+        else:
+            print(Fore.RED + "Incorrect")
+            paskeys()
+
+
+        
+paskeys()
+
+
 
 now = datetime.datetime.now()
 print("Blu Lanuched On:")
@@ -50,6 +76,17 @@ def arguments(user_input):
         print("Keys-Are:")
         inputs(version)
 
+    if user_input == "-sp-" or user_input == "set password" or user_input == "Set Pwd" or user_input == "set pwd" or user_input == "Set Password" or user_input == "SET PASSWORD":
+        filecheck = os.path.exists("more/data/paskeys.json")
+        if filecheck == False:
+            data = {}
+            data['pwd'] = getpass.getpass("Set Password $ ")
+            writeToJSONFile('','more/data/paskeys',data)
+            inputs(version)
+        else:
+            print("You Already Have A Password")
+            inputs(version)
+
     if user_input == "time" or user_input == "Time" or user_input == "TIME":
         now = datetime.datetime.now()
         print (now.strftime("%Y-%m-%d %H:%M:%S"))
@@ -70,7 +107,7 @@ def arguments(user_input):
                 if num1 == "":
                     break
 
-                if op == "q" or op == "quit" or op == "Quit" or op == "QUIT" or op == "Q":
+                if num1 == "q" or num1 == "quit" or num1 == "Quit" or num1 == "QUIT" or num1 == "Q":
                     break
                     
                 print("Error Bad Input")
@@ -181,6 +218,13 @@ def arguments(user_input):
 
     print("Command Not Found")
     inputs(version)
+
+
+
+def writeToJSONFile(path, fileName, data):
+    filePathNameWExt = './' + path + '/' + fileName + '.json'
+    with open(filePathNameWExt, 'w') as fp:
+        json.dump(data, fp)
 
 
 inputs(version)
