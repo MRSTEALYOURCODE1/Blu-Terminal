@@ -76,6 +76,70 @@ def arguments(user_input):
         print("Keys-Are:")
         inputs(version)
 
+    if user_input == "secure document" or user_input == "encrypted document" or user_input == "-sd-" or user_input == "-ed-":
+        print("Making Files")
+        filecheck = os.path.exists("more/data/secure$_docs.json")
+        filecheck2 = os.path.exists("more/data/more_secure$_docs.json")
+        if filecheck == False:
+            doc_input = {}
+            doc_input['Secure_Docs_1'] = input("Secure_Docs-1.0$ ")
+            writeToJSONFile('','more/data/secure$_docs',doc_input)
+            inputs(version)
+        elif filecheck2 == False:
+            doc_input = {}
+            doc_input['Secure_Docs_2'] = input("Secure_Docs-1.0$ ")
+            writeToJSONFile('','more/data/more_secure$_docs',doc_input)
+            inputs(version)
+        else:
+            doc_input = {}
+            doc_input['Secure_Docs_3'] = input("Secure_Docs-1.0$ ")
+            writeToJSONFile('','more/data/evenmore_secure$_docs',doc_input)
+            inputs(version)
+
+    if user_input == "-gsd-" or user_input == "-ged-" or user_input == "get secure document" or user_input == "get encrypted document":
+        checkfiles = os.path.exists("more/data/secure$_docs.json")
+        if checkfiles == True:
+        
+            filecheck = os.path.exists("more/data/paskeys.json")
+            if filecheck == True:
+                with open('more/data/paskeys.json') as f:
+                    dataa = json.load(f)
+
+                pwdchk = getpass.getpass("Enter Password: Secure 1.0$ ")
+                if pwdchk == dataa['pwd']:
+                    print()
+                    print(Fore.GREEN + "Here are your documents:")
+                    print(Style.RESET_ALL)
+                else:
+                    print(Fore.RED + "Incorrect")
+                    arguments(user_input)
+
+
+            with open('more/data/secure$_docs.json') as a:
+                ged = json.load(a)
+
+            print(ged['Secure_Docs_1'])
+            print()
+
+            with open('more/data/more_secure$_docs.json') as b:
+                gsd = json.load(b)
+
+            print(gsd['Secure_Docs_2'])
+            print()
+
+            with open('more/data/evenmore_secure$_docs.json') as c:
+                gett = json.load(c)
+
+            print(gett['Secure_Docs_3'])
+            print()
+
+            inputs(version)
+        else:
+            print("You Don't Have Any Docs")
+            inputs(version)
+
+        
+
     if user_input == "-dp-" or user_input == "delete password" or user_input == "DELETE PASSWORD":
         filecheck = os.path.exists("more/data/paskeys.json")
         if filecheck == True:
