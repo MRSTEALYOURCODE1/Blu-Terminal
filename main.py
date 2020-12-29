@@ -76,6 +76,38 @@ def arguments(user_input):
         print("Keys-Are:")
         inputs(version)
 
+    if user_input == "-dp-" or user_input == "delete password" or user_input == "DELETE PASSWORD":
+        filecheck = os.path.exists("more/data/paskeys.json")
+        if filecheck == True:
+            dp = getpass.getpass("To Make Changes Enter Password")
+            with open('more/data/paskeys.json') as f:
+                dataa = json.load(f)
+            if dp == dataa['pwd']:
+                if os.path.exists("more/data/paskeys.json"):
+                    os.remove("more/data/paskeys.json") 
+                    inputs(version)
+        else:
+            print("You Dont Have A Password")
+            inputs(version)
+
+    if user_input == "-cp-" or user_input == "change password" or user_input == "Change Password" or user_input == "CHANGE PASSWORD":
+        filecheck = os.path.exists("more/data/paskeys.json")
+        if filecheck == False:
+            print("You Don't Have A Password")
+        else:
+            pwdint = getpass.getpass("Enter Old Password")
+            with open('more/data/paskeys.json') as f:
+                dataa = json.load(f)
+            if pwdint == dataa['pwd']:
+                data = {}
+                data['pwd'] = getpass.getpass("Set New Password $ ")
+                writeToJSONFile('','more/data/paskeys',data)
+                inputs(version)
+            else:
+                print("Incorrect")
+                inputs(version)
+
+
     if user_input == "-sp-" or user_input == "set password" or user_input == "Set Pwd" or user_input == "set pwd" or user_input == "Set Password" or user_input == "SET PASSWORD":
         filecheck = os.path.exists("more/data/paskeys.json")
         if filecheck == False:
@@ -209,11 +241,8 @@ def arguments(user_input):
         print("   and much more")
         inputs(version)
 
-    if user_input == "clear":
-        i = 1
-        while i < 100:
-            i += 1
-            print()
+    if user_input == "clear" or user_input == "bye" or user_input == "CLEAR" or user_input == "BYE" or user_input == "Clear" or user_input == "Bye":
+        os.system('clear')
         inputs(version)
 
     print("Command Not Found")
