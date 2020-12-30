@@ -76,6 +76,15 @@ def arguments(user_input):
         print("Keys-Are:")
         inputs(version)
 
+    if user_input == "playarea" or user_input == "-pa-" or user_input == "PlayArea":
+        print("Welcome To Play Area")
+        while True:
+            ii = input("PlayArea$ ") 
+
+            if ii == "q" or ii == "quit":
+                inputs(version)
+
+
     if user_input == "secure document" or user_input == "encrypted document" or user_input == "-sd-" or user_input == "-ed-":
         print("Making Files")
         filecheck = os.path.exists("more/data/secure$_docs.json")
